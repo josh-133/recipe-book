@@ -1,13 +1,13 @@
 <h1>Create Recipe</h1>
-<form>
+<form [formGroup]="applyForm" (submit)="createRecipe()">
     <label for="title">Title</label><br>
-    <input type="text" id="rtitle" name="rtitle"><br>
+    <input type="text" id="rtitle" name="rtitle" formControlName="title"><br>
     
     <label for="ingredients">Ingredients</label><br>
-    <input type="text" id="ingredients" name="ingredients"><br>
+    <input type="text" id="ingredients" name="ingredients" formControlName="ingredients"><br>
     
     <label for="method">Method</label><br>
-    <textarea id="method" name="method" rows="4" cols="50"></textarea><br>
+    <textarea id="method" name="method" rows="4" cols="50" formControlName="method"></textarea><br>
 
-    <button id="save">Save</button>
+    <button type="submit" id="save">Save</button>
 </form>
