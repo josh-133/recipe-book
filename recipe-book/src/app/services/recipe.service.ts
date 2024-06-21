@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { RecipeInterface } from '../interfaces/recipe-interface';
+import { Recipe } from '../interfaces/recipe';
 
 @Injectable({
   providedIn: 'root'
@@ -7,6 +7,16 @@ import { RecipeInterface } from '../interfaces/recipe-interface';
 export class RecipeService {
 
   constructor() { }
+
+  recipeList: Recipe[] = []
+
+  getAllRecipes(): Recipe[] {
+    return this.recipeList;
+  }
+
+  getRecipeById(id: number): Recipe | undefined {
+    return this.recipeList.find(recipe => recipe.id === id);
+  }
 
   createRecipe(title: string, ingredients: string, method: string) {
     console.log(`Recipe created: title: ${title}, ingredients: ${ingredients}, method: ${method}.`);
