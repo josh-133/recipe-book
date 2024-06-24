@@ -1,7 +1,10 @@
-<div>
-    <h3>Title</h3><br>
-
-    <p>Ingredients</p><br>
-
-    <p>Method</p><br>
+<div *ngIf="recipe; else noRecipe">
+    <h2>{{ recipe.title }}</h2>
+    <p><strong>Ingredients:</strong> {{ recipe.ingredients }}</p>
+    <p><strong>Method:</strong> {{ recipe.method }}</p>
+    <p *ngIf="recipe.favourite">Favourite <fa-icon [icon]="faStar"></fa-icon></p>
 </div>
+
+<ng-template #noRecipe>
+    <p>Recipe not found!</p>
+  </ng-template>
