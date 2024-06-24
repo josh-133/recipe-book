@@ -4,6 +4,7 @@ import { RecipeService } from '../../services/recipe.service';
 import { CommonModule } from '@angular/common';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import {faStar} from '@fortawesome/free-solid-svg-icons'
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -19,7 +20,7 @@ export class HomeComponent {
 
   recipes: Recipe[];
 
-  constructor(private recipeService: RecipeService) {
+  constructor(private routerLink: RouterLink, private recipeService: RecipeService) {
     this.recipes = this.recipeService.getAllRecipes();
   }
 

@@ -5,5 +5,6 @@
         <p>{{ recipe.ingredients }}</p>
         <p>{{ recipe.method }}</p>
         <p *ngIf="recipe.favourite">Favourite <fa-icon [icon]="faStar"></fa-icon></p>
+        <a [routerLink]="['/update-recipe/', recipe.id]">Update recipe {{recipe.title}}.</a>
     </li>
 </ul>
