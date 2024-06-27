@@ -22,7 +22,7 @@ export const routes: Routes = [
         title: 'Read Recipe'
     },
     {
-        path: 'update-recipe',
+        path: 'update-recipe/:id',
         component: UpdateRecipeComponent,
         title: 'Update Recipe'
     },
