@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { Recipe } from '../../interfaces/recipe';
 import { RecipeService } from '../../services/recipe.service';
 import { CommonModule } from '@angular/common';
@@ -13,15 +13,19 @@ import {faStar} from '@fortawesome/free-solid-svg-icons'
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
   faStar = faStar
 
   @Input() recipe!: Recipe;
 
-  recipes: Recipe[];
+  recipes!: Recipe[];
 
-  constructor(private routerModule: RouterModule, private recipeService: RecipeService) {
-    this.recipes = this.recipeService.getAllRecipes();
+  constructor(private routerModule: RouterModule, private recipeService: RecipeService) {}
+
+  ngOnInit(): void {
+    this.recipeService.getAllRecipes().subscribe((recipes) => {
+      this.recipes = recipes;
+    });
   }
 
 }

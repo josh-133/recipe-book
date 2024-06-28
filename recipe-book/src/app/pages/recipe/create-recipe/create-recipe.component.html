@@ -1,13 +1,16 @@
 <h1>Create Recipe</h1>
-<form [formGroup]="applyForm" (submit)="createRecipe()">
+<form (submit)="onSubmit()">
     <label for="title">Title</label><br>
-    <input type="text" id="rtitle" name="rtitle" formControlName="title"><br>
+    <input type="text" id="rtitle" [(ngModel)]="newRecipe.title" name="title" required><br>
     
     <label for="ingredients">Ingredients</label><br>
-    <input type="text" id="ingredients" name="ingredients" formControlName="ingredients"><br>
+    <input type="text" id="ingredients" [(ngModel)]="newRecipe.ingredients" name="ingredients" required><br>
     
     <label for="method">Method</label><br>
-    <textarea id="method" name="method" rows="4" cols="50" formControlName="method"></textarea><br>
+    <textarea id="method" rows="4" cols="50" [(ngModel)]="newRecipe.method" name="method" required></textarea><br>
+
+    <label for="favourite">Favourite</label>
+    <input id="favourite" type="checkbox" [(ngModel)]="newRecipe.favourite" name="favourite">
 
     <button type="submit" id="save">Save</button>
 </form>
