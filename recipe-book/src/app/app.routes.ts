@@ -17,7 +17,7 @@ export const routes: Routes = [
         title: 'Create Recipe'
     },
     {
-        path: 'read-recipe/:id',
+        path: 'read-recipe',
         component: ReadRecipeComponent,
         title: 'Read Recipe'
     },
