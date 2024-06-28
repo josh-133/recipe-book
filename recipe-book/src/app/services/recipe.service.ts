@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../interfaces/recipe';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
+  private apiUrl = 'http://localhost:8000/api/recipes';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   recipes: Recipe[] = [
     {
@@ -29,7 +31,7 @@ export class RecipeService {
   private recipeSubject = new BehaviorSubject<Recipe[]>(this.recipes);
 
   getAllRecipes(): Observable<Recipe[]> {
-    return this.recipeSubject.asObservable();
+    return this.http.get<Recipe[]>(this.apiUrl);
   }
 
   getRecipeById(id: number): Recipe | undefined {
