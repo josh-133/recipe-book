@@ -18,17 +18,18 @@ export class UpdateRecipeComponent implements OnInit {
   recipe: Recipe | undefined;
 
   ngOnInit(): void {
-    const id = Number(this.route.snapshot.paramMap.get('id'));
-    this.recipe = this.recipeService.getRecipeById(id)
+    const id = +this.route.snapshot.paramMap.get('id')!;
+    this.recipeService.getRecipeById(id).subscribe(recipe => {
+      this.recipe = recipe
+    });
   }
 
-  onSubmit() {
+  onSubmit(): void {
     if (this.recipe) {
-      console.log('Form submitted', this.recipe);
-      this.recipeService.updateRecipe(this.recipe)
-      this.router.navigate(['/read-recipe']);  // Navigate back to home page
-    } else {
-      console.error('Recipe is undefined');
+      this.recipeService.updateRecipe(this.recipe).subscribe(updatedRecipe => {
+        console.log('Recipe updated: ', updatedRecipe);
+        this.router.navigate(['/read-recipe']);  // Navigate back to recipe page
+     });
     }
   }
 }

@@ -20,7 +20,7 @@ export class HomeComponent implements OnInit {
 
   recipes!: Recipe[];
 
-  constructor(private routerModule: RouterModule, private recipeService: RecipeService) {}
+  constructor(private recipeService: RecipeService) {}
 
   ngOnInit(): void {
     this.recipeService.getAllRecipes().subscribe((recipes) => {

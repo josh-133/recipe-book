@@ -34,8 +34,8 @@ export class RecipeService {
     return this.http.get<Recipe[]>(this.apiUrl);
   }
 
-  getRecipeById(id: number): Recipe | undefined {
-    return this.recipes.find(recipe => recipe.id === id);
+  getRecipeById(id: number): Observable<Recipe> {
+    return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
 
   createRecipe(title: string, ingredients: string, method: string) {
@@ -43,18 +43,10 @@ export class RecipeService {
   }
 
   addRecipe(recipe: Recipe) {
-    recipe.id = this.recipes.length + 1; // Assign a new ID
-    this.recipes.push(recipe);
-    this.recipeSubject.next(this.recipes)
+    return this.http.post<Recipe[]>(this.apiUrl, recipe);
   }
 
   updateRecipe(updatedRecipe: Recipe) {
-    const index = this.recipes.findIndex(recipe => recipe.id === updatedRecipe.id);
-    if (index !== -1) {
-      this.recipes[index] = updatedRecipe;
-      this.recipeSubject.next(this.recipes);
-    } else {
-      console.error('Recipe not found');
-    }
+    return this.http.put<Recipe[]>(`${this.apiUrl}/${updatedRecipe.id}`, updatedRecipe);
   }
 }
