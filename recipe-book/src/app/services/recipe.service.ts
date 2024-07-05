@@ -1,13 +1,15 @@
 import { Injectable } from '@angular/core';
 import { Recipe } from '../interfaces/recipe';
+import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class RecipeService {
+  private apiUrl = 'http://localhost:8000/api/recipes';
 
-  constructor() { }
+  constructor(private http: HttpClient) { }
 
   recipes: Recipe[] = [
     {
@@ -29,11 +31,11 @@ export class RecipeService {
   private recipeSubject = new BehaviorSubject<Recipe[]>(this.recipes);
 
   getAllRecipes(): Observable<Recipe[]> {
-    return this.recipeSubject.asObservable();
+    return this.http.get<Recipe[]>(this.apiUrl);
   }
 
-  getRecipeById(id: number): Recipe | undefined {
-    return this.recipes.find(recipe => recipe.id === id);
+  getRecipeById(id: number): Observable<Recipe> {
+    return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
 
   createRecipe(title: string, ingredients: string, method: string) {
@@ -41,18 +43,10 @@ export class RecipeService {
   }
 
   addRecipe(recipe: Recipe) {
-    recipe.id = this.recipes.length + 1; // Assign a new ID
-    this.recipes.push(recipe);
-    this.recipeSubject.next(this.recipes)
+    return this.http.post<Recipe[]>(this.apiUrl, recipe);
   }
 
   updateRecipe(updatedRecipe: Recipe) {
-    const index = this.recipes.findIndex(recipe => recipe.id === updatedRecipe.id);
-    if (index !== -1) {
-      this.recipes[index] = updatedRecipe;
-      this.recipeSubject.next(this.recipes);
-    } else {
-      console.error('Recipe not found');
-    }
+    return this.http.put<Recipe[]>(`${this.apiUrl}/${updatedRecipe.id}`, updatedRecipe);
   }
 }
