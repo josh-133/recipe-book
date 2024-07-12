@@ -1,20 +1,25 @@
 <h1>Update Recipe</h1>
 <div *ngIf="recipe; else noRecipe">
     <form (submit)="onSubmit()">
-        <label for="title">Title</label><br>
-        <input type="text" id="rtitle" [(ngModel)]="recipe.title" name="rtitle"><br>
+        <div class="mb-3">
+            <label class="form-label" for="title">Title</label><br>
+            <input class="form-control" type="text" id="rtitle" [(ngModel)]="recipe.title" name="rtitle"><br>
+        </div>
+        <div class="mb-3">    
+            <label class="form-label" for="ingredients">Ingredients</label><br>
+            <input class="form-control" type="text" id="ingredients" [(ngModel)]="recipe.ingredients" name="ingredients"><br>
+        </div>
+        <div class="mb-3">
+            <label class="form-label" for="method">Method</label><br>
+            <textarea class="form-control" id="method" [(ngModel)]="recipe.method" name="method" rows="4" cols="50"></textarea><br>
+        </div>
+        <div class="mb-3">
+            <label class="form-check-label" for="favourite">Favourite</label>
+            <input id="favourite" type="checkbox" [(ngModel)]="recipe.favourite" name="favourite">
+        </div>
         
-        <label for="ingredients">Ingredients</label><br>
-        <input type="text" id="ingredients" [(ngModel)]="recipe.ingredients" name="ingredients"><br>
-        
-        <label for="method">Method</label><br>
-        <textarea id="method" [(ngModel)]="recipe.method" name="method" rows="4" cols="50"></textarea><br>
-
-        <label for="favourite">Favourite</label>
-        <input id="favourite" type="checkbox" [(ngModel)]="recipe.favourite" name="favourite">
-
-        <button id="save" type="submit">Save</button>
-        <button id="delete">Delete</button>
+        <button class="btn btn-primary" id="save" type="submit">Save</button>
+        <button class="btn btn-danger" id="delete">Delete</button>
     </form>
 </div>
 
