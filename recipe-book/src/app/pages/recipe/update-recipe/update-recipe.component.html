@@ -1,5 +1,5 @@
-<h1>Update Recipe</h1>
-<div *ngIf="recipe; else noRecipe">
+<div class="container m-4" *ngIf="recipe; else noRecipe">
+    <h1>Update Recipe</h1>
     <form (submit)="onSubmit()">
         <div class="mb-3">
             <label class="form-label fw-bold" for="title">Title</label><br>
