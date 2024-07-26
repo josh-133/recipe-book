@@ -29,10 +29,11 @@ export class CreateRecipeComponent {
   }; 
 
   onSubmit() {
-    console.log('Form submitted', this.newRecipe);
-    this.recipeService.addRecipe(this.newRecipe)
-    this.router.navigate(['/read-recipe']);  // Navigate back to home page
-    this.resetForm()
+    this.recipeService.addRecipe(this.newRecipe).subscribe(createdRecipe => {
+      console.log('Recipe created: ', createdRecipe);
+      this.router.navigate(['/read-recipe']);  // Navigate back to home page
+      this.resetForm();
+    })
   }
 
   resetForm() {

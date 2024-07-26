@@ -2,24 +2,24 @@
 <div *ngIf="recipe; else noRecipe">
     <form (submit)="onSubmit()">
         <div class="mb-3">
-            <label class="form-label" for="title">Title</label><br>
+            <label class="form-label fw-bold" for="title">Title</label><br>
             <input class="form-control" type="text" id="rtitle" [(ngModel)]="recipe.title" name="rtitle"><br>
         </div>
         <div class="mb-3">    
-            <label class="form-label" for="ingredients">Ingredients</label><br>
+            <label class="form-label fw-bold" for="ingredients">Ingredients</label><br>
             <input class="form-control" type="text" id="ingredients" [(ngModel)]="recipe.ingredients" name="ingredients"><br>
         </div>
         <div class="mb-3">
-            <label class="form-label" for="method">Method</label><br>
+            <label class="form-label fw-bold" for="method">Method</label><br>
             <textarea class="form-control" id="method" [(ngModel)]="recipe.method" name="method" rows="4" cols="50"></textarea><br>
         </div>
         <div class="mb-3">
-            <label class="form-check-label" for="favourite">Favourite</label>
-            <input id="favourite" type="checkbox" [(ngModel)]="recipe.favourite" name="favourite">
+            <label class="form-check-label fw-bold" for="favourite">Favourite</label>
+            <input id="favourite" type="checkbox" class="m-2" [(ngModel)]="recipe.favourite" name="favourite">
         </div>
         
         <button class="btn btn-primary" id="save" type="submit">Save</button>
-        <button class="btn btn-danger" id="delete">Delete</button>
+        <button class="btn btn-danger m-3" id="delete" (click)="deleteRecipe()">Delete</button>
     </form>
 </div>
 

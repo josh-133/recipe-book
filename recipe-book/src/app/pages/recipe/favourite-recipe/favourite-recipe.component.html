@@ -1,8 +1,18 @@
 <h3>Favourite Recipe List</h3>
-<ul *ngFor="let recipe of favouriteRecipes">
-    <li>
-        <h2>{{ recipe.title }}</h2>
-        <p>{{ recipe.ingredients }}</p>
-        <p>{{ recipe.method }}</p>
-    </li>
-</ul>
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-4 mt-3" *ngFor="let recipe of favouriteRecipes">      
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-header">{{ recipe.title }}</h2>
+
+                    <label class="fw-bold" for="ingredients">Ingredients</label><br>
+                    <p class="card-text">{{ recipe.ingredients }}</p>
+                    
+                    <label class="fw-bold" for="method">Method</label><br>
+                    <p class="card-text">{{ recipe.method }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
