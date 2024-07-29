@@ -28,7 +28,7 @@ export class UpdateRecipeComponent implements OnInit {
     if (this.recipe) {
       this.recipeService.updateRecipe(this.recipe).subscribe(updatedRecipe => {
         console.log('Recipe updated: ', updatedRecipe);
-        this.router.navigate(['/read-recipe']);  // Navigate back to recipe page
+        this.router.navigate(['/read-recipes']);  // Navigate back to recipe page
      });
     }
   }

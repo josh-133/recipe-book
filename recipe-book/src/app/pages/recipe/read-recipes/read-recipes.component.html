@@ -1,0 +1,19 @@
+<div class="container m-4">
+    <h1>Recipes Page</h1>
+    <div class="row">
+        <div class="col-md-4 mt-3" *ngFor="let recipe of recipes">      
+            <div class="card">
+                <div class="card-body">
+                    <h2 class="card-header">{{ recipe.title }}</h2>
+
+                    <label class="fw-bold" for="ingredients">Description</label><br>
+                    <p class="card-text">Insert recipe description here.</p>
+                    
+                    <p *ngIf="recipe.favourite">Favourite <fa-icon [icon]="faStar"></fa-icon></p>
+                    <button type="button" class="btn btn-primary" [routerLink]="['/update-recipe/', recipe.id]">Update recipe</button>
+                    <button type="button" class="btn btn-primary m-2" [routerLink]="['/read-recipe/', recipe.id]">View recipe</button>  
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
