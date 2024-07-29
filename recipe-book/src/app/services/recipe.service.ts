@@ -11,22 +11,7 @@ export class RecipeService {
 
   constructor(private http: HttpClient) { }
 
-  recipes: Recipe[] = [
-    {
-      id: 1,
-      title: 'Recipe 1',
-      ingredients: '1x egg',
-      method: '1. Crack egg.',
-      favourite: false
-    },
-    {
-      id: 2,
-      title: 'Recipe 2',
-      ingredients: '2x eggs',
-      method: '1. Crack eggs.',
-      favourite: true
-    }
-  ];
+  recipes: Recipe[] = [];
 
   private recipeSubject = new BehaviorSubject<Recipe[]>(this.recipes);
 

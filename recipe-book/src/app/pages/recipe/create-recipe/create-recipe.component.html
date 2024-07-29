@@ -1,9 +1,12 @@
-<div class="container m-4">
+<div class="container justify-content-center">
     <h1>Create Recipe</h1>
     <form (submit)="onSubmit()">
         <label for="title" class="fw-bold">Title</label><br>
         <input type="text" id="rtitle" class="form-control" [(ngModel)]="newRecipe.title" name="title" required><br>
         
+        <label for="description" class="fw-bold">Description</label><br>
+        <textarea id="description" rows="8" cols="50" class="form-control" [(ngModel)]="newRecipe.description" name="description" required></textarea><br>
+
         <label for="ingredients" class="fw-bold">Ingredients</label><br>
         <textarea id="ingredients" rows="8" cols="50" class="form-control" [(ngModel)]="newRecipe.ingredients" name="ingredients" required></textarea><br>
         

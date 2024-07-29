@@ -23,6 +23,7 @@ export class CreateRecipeComponent {
   newRecipe: Recipe = {
     id: 0,
     title: '',
+    description: '',
     ingredients: '',
     method: '',
     favourite: false
@@ -31,7 +32,7 @@ export class CreateRecipeComponent {
   onSubmit() {
     this.recipeService.addRecipe(this.newRecipe).subscribe(createdRecipe => {
       console.log('Recipe created: ', createdRecipe);
-      this.router.navigate(['/read-recipe']);  // Navigate back to home page
+      this.router.navigate(['/read-recipes']);  // Navigate back to home page
       this.resetForm();
     })
   }
@@ -40,6 +41,7 @@ export class CreateRecipeComponent {
     this.newRecipe = {
       id: 0,
       title: '',
+      description: '',
       ingredients: '',
       method: '',
       favourite: false

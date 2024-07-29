@@ -3,12 +3,13 @@ import { Recipe } from '../../../interfaces/recipe';
 import { RecipeService } from '../../../services/recipe.service';
 import { CommonModule } from '@angular/common';
 import { HomeComponent } from '../../home/home.component';
+import { RouterModule } from '@angular/router';
 import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-favourite-recipe',
   standalone: true,
-  imports: [CommonModule, HomeComponent],
+  imports: [CommonModule, HomeComponent, RouterModule],
   templateUrl: './favourite-recipe.component.html',
   styleUrl: './favourite-recipe.component.css'
 })

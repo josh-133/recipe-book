@@ -37,7 +37,7 @@ export class UpdateRecipeComponent implements OnInit {
     if (this.recipe) {
       this.recipeService.deleteRecipe(this.recipe.id).subscribe(deletedRecipe => {
         console.log('Recipe deleted: ', deletedRecipe);
-        this.router.navigate(['/read-recipe']);  // Navigate back to recipe page
+        this.router.navigate(['/read-recipes']);  // Navigate back to recipe page
       })
     }
   }
