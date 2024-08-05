@@ -7,11 +7,23 @@
         </div>
         <div class="mb-3">    
             <label class="form-label fw-bold" for="ingredients">Ingredients</label><br>
-            <textarea class="form-control" rows="8" cols="50" id="ingredients" [(ngModel)]="recipe.ingredients" name="ingredients"></textarea><br>
+            <div formArrayName="ingredients" *ngIf="ingredients">
+                <div *ngFor="let ingredient of ingredients.controls; let i=index" class="form-group">
+                    <input [formControlName]="i" class="form-control">
+                    <button type="button" class="btn btn-danger" (click)="removeIngredient(i)">Remove</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="addIngredient()">Add Ingredient</button>
         </div>
         <div class="mb-3">
             <label class="form-label fw-bold" for="method">Method</label><br>
-            <textarea class="form-control" rows="8" cols="50" id="method" [(ngModel)]="recipe.method" name="method"></textarea><br>
+            <div formArrayName="method" *ngIf="method">
+                <div *ngFor="let step of method.controls; let i=index" class="form-group">
+                    <input [formControlName]="i" class="form-control">
+                    <button type="button" class="btn btn-danger" (click)="removeStep(i)">Remove</button>
+                </div>
+            </div>
+            <button type="button" class="btn btn-primary" (click)="addStep()">Add Method</button>
         </div>
         <div class="mb-3">
             <label class="form-check-label fw-bold" for="favourite">Favourite</label>
