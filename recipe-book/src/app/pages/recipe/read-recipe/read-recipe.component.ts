@@ -22,7 +22,7 @@ export class ReadRecipeComponent implements OnInit {
   constructor(private recipeService: RecipeService, private routerModule: RouterModule, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    const id = +this.route.snapshot.paramMap.get('id')!;
+    const id = this.route.snapshot.paramMap.get('id')!;
     this.recipeService.getRecipeById(id).subscribe(recipe => {
       this.recipe = recipe
     });

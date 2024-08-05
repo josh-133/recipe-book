@@ -19,7 +19,7 @@ export class RecipeService {
     return this.http.get<Recipe[]>(this.apiUrl);
   }
 
-  getRecipeById(id: number): Observable<Recipe> {
+  getRecipeById(id: string): Observable<Recipe> {
     return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
 
@@ -35,7 +35,7 @@ export class RecipeService {
     return this.http.put<Recipe[]>(`${this.apiUrl}/${updatedRecipe.id}`, updatedRecipe);
   }
 
-  deleteRecipe(id: number) {
+  deleteRecipe(id: string) {
     return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

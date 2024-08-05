@@ -21,7 +21,7 @@ export class CreateRecipeComponent {
   constructor(private recipeService: RecipeService, private router: Router) {}
 
   newRecipe: Recipe = {
-    id: 0,
+    id: '0',
     title: '',
     description: '',
     ingredients: '',
@@ -39,7 +39,7 @@ export class CreateRecipeComponent {
 
   resetForm() {
     this.newRecipe = {
-      id: 0,
+      id: '0',
       title: '',
       description: '',
       ingredients: '',
