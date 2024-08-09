@@ -1,21 +1,77 @@
 <div class="container justify-content-center">
-    <h1>Create Recipe</h1>
-    <form (submit)="onSubmit()">
-        <label for="title" class="fw-bold">Title</label><br>
-        <input type="text" id="rtitle" class="form-control" [(ngModel)]="newRecipe.title" name="title" required><br>
-        
-        <label for="description" class="fw-bold">Description</label><br>
-        <textarea id="description" rows="8" cols="50" class="form-control" [(ngModel)]="newRecipe.description" name="description" required></textarea><br>
+  <h1>Create Recipe</h1>
+  <form (submit)="onSubmit()">
+    <label for="title" class="fw-bold">Title</label><br />
+    <input
+      type="text"
+      id="rtitle"
+      class="form-control"
+      formControlName="title"
+      [(ngModel)]="newRecipe.title"
+      name="title"
+      required
+    /><br />
 
-        <label for="ingredients" class="fw-bold">Ingredients</label><br>
-        <textarea id="ingredients" rows="8" cols="50" class="form-control" [(ngModel)]="newRecipe.ingredients" name="ingredients" required></textarea><br>
-        
-        <label for="method" class="fw-bold">Method</label><br>
-        <textarea id="method" rows="8" cols="50" class="form-control" [(ngModel)]="newRecipe.method" name="method" required></textarea><br>
+    <label for="description" class="fw-bold">Description</label><br />
+    <input
+      id="description"
+      rows="8"
+      cols="50"
+      class="form-control"
+      [(ngModel)]="newRecipe.description"
+      name="description"
+      required
+    /><br />
 
-        <label for="favourite" class="fw-bold">Favourite</label>
-        <input id="favourite" type="checkbox" class="m-2" [(ngModel)]="newRecipe.favourite" name="favourite">
+    <div class="mb-3">
+      <label class="form-label fw-bold" for="ingredients">Ingredients</label
+      ><br />
+      <div formArrayName="ingredients" *ngIf="ingredients">
+        <div
+          *ngFor="let ingredient of ingredients.controls; let i = index"
+          class="form-group"
+        >
+          <input [formControlName]="i" class="form-control" />
+          <button
+            type="button"
+            class="btn btn-danger"
+            (click)="removeIngredient(i)"
+          >
+            Remove
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addIngredient()">
+        Add Ingredient
+      </button>
+    </div>
+    <div class="mb-3">
+      <label class="form-label fw-bold" for="method">Method</label><br />
+      <div formArrayName="method" *ngIf="method">
+        <div
+          *ngFor="let step of method.controls; let i = index"
+          class="form-group"
+        >
+          <input [formControlName]="i" class="form-control" />
+          <button type="button" class="btn btn-danger" (click)="removeStep(i)">
+            Remove
+          </button>
+        </div>
+      </div>
+      <button type="button" class="btn btn-primary" (click)="addStep()">
+        Add Method
+      </button>
+    </div>
 
-        <button type="submit" class="btn btn-primary" id="save">Save</button>
-    </form>
+    <label for="favourite" class="fw-bold">Favourite</label>
+    <input
+      id="favourite"
+      type="checkbox"
+      class="m-2"
+      [(ngModel)]="newRecipe.favourite"
+      name="favourite"
+    />
+
+    <button type="submit" class="btn btn-primary" id="save">Save</button>
+  </form>
 </div>

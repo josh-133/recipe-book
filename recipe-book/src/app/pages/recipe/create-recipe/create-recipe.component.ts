@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../../../services/recipe.service';
 import { Recipe } from '../../../interfaces/recipe';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-create-recipe',
@@ -13,7 +14,15 @@ import { Router } from '@angular/router';
   styleUrl: './create-recipe.component.css',
 })
 export class CreateRecipeComponent {
-  constructor(private recipeService: RecipeService, private router: Router) {}
+  recipe: Recipe | undefined;
+  recipeForm: FormGroup | undefined;
+
+  constructor(
+    private recipeService: RecipeService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
 
   newRecipe: Recipe = {
     id: '0',
@@ -23,6 +32,62 @@ export class CreateRecipeComponent {
     method: [],
     favourite: false,
   };
+
+  ngOnInit(): void {
+    const id = this.route.snapshot.paramMap.get('id')!;
+
+    this.initializeForm();
+
+    this.recipeService.getRecipeById(id).subscribe((recipe) => {
+      this.recipe = recipe;
+    });
+  }
+
+  initializeForm() {
+    this.recipeForm = this.fb.group({
+      title: ['', Validators.required],
+      description: ['', Validators.required],
+      ingredients: this.fb.array([]),
+      method: this.fb.array([]),
+      favourite: false,
+    });
+  }
+
+  get ingredients(): FormArray | undefined {
+    return this.recipeForm?.get('ingredients') as FormArray;
+  }
+
+  addIngredient(): void {
+    if (this.ingredients) {
+      this.ingredients.push(this.fb.control('', Validators.required));
+    }
+  }
+
+  removeIngredient(index: number): void {
+    if (this.ingredients) {
+      this.ingredients.removeAt(index);
+    }
+  }
+
+  get method(): FormArray | undefined {
+    if (this.recipeForm) {
+      return this.recipeForm.get('method') as FormArray;
+    } else {
+      return undefined;
+    }
+  }
+
+  addStep(): void {
+    if (this.method) {
+      this.method.push(this.fb.control('', Validators.required));
+    }
+  }
+
+  removeStep(index: number): void {
+    if (this.method) {
+      this.method.removeAt(index);
+    }
+  }
 
   onSubmit() {
     this.recipeService.addRecipe(this.newRecipe).subscribe((createdRecipe) => {
