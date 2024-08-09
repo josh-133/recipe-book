@@ -5,36 +5,31 @@ import { RecipeService } from '../../../services/recipe.service';
 import { Recipe } from '../../../interfaces/recipe';
 import { Router } from '@angular/router';
 
-
 @Component({
   selector: 'app-create-recipe',
   standalone: true,
-  imports: [
-    CommonModule,
-    FormsModule
-  ],
+  imports: [CommonModule, FormsModule],
   templateUrl: './create-recipe.component.html',
-  styleUrl: './create-recipe.component.css'
+  styleUrl: './create-recipe.component.css',
 })
 export class CreateRecipeComponent {
-
   constructor(private recipeService: RecipeService, private router: Router) {}
 
   newRecipe: Recipe = {
     id: '0',
     title: '',
     description: '',
-    ingredients: '',
-    method: '',
-    favourite: false
-  }; 
+    ingredients: [],
+    method: [],
+    favourite: false,
+  };
 
   onSubmit() {
-    this.recipeService.addRecipe(this.newRecipe).subscribe(createdRecipe => {
+    this.recipeService.addRecipe(this.newRecipe).subscribe((createdRecipe) => {
       console.log('Recipe created: ', createdRecipe);
-      this.router.navigate(['/read-recipes']);  // Navigate back to home page
+      this.router.navigate(['/read-recipes']); // Navigate back to home page
       this.resetForm();
-    })
+    });
   }
 
   resetForm() {
@@ -42,9 +37,9 @@ export class CreateRecipeComponent {
       id: '0',
       title: '',
       description: '',
-      ingredients: '',
-      method: '',
-      favourite: false
-    }
+      ingredients: [],
+      method: [],
+      favourite: false,
+    };
   }
 }

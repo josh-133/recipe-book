@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { NgForm, FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { RecipeService } from '../../../services/recipe.service';
 import { Recipe } from '../../../interfaces/recipe';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -11,66 +11,62 @@ import { ActivatedRoute, Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule, FormsModule, ReactiveFormsModule],
   templateUrl: './update-recipe.component.html',
-  styleUrl: './update-recipe.component.css'
+  styleUrl: './update-recipe.component.css',
 })
 export class UpdateRecipeComponent implements OnInit {
-  
   recipe: Recipe | undefined;
   recipeForm: FormGroup | undefined;
 
-  constructor(private recipeService: RecipeService, private route: ActivatedRoute, private router: Router, private fb: FormBuilder) {
-    // this.recipeForm = this.fb.group({
-    //   title: ['', Validators.required],
-    //   ingredients: this.fb.array([this.fb.control('', Validators.required)]),
-    //   method: this.fb.array([this.fb.control('', Validators.required)])
-    // });
-  }
+  constructor(
+    private recipeService: RecipeService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private fb: FormBuilder
+  ) {}
 
   ngOnInit(): void {
-    this.initializeForm();
     const id = this.route.snapshot.paramMap.get('id')!;
-    this.recipeService.getRecipeById(id).subscribe(recipe => {
-      this.recipe = recipe
+
+    this.initializeForm();
+
+    this.recipeService.getRecipeById(id).subscribe((recipe) => {
+      this.recipe = recipe;
+      this.populateForm(recipe);
     });
   }
 
   initializeForm() {
     this.recipeForm = this.fb.group({
       title: ['', Validators.required],
+      description: ['', Validators.required],
       ingredients: this.fb.array([]),
       method: this.fb.array([]),
-      favourite: false
+      favourite: false,
     });
   }
 
   populateForm(recipe: Recipe) {
-    if (this.recipeForm) {  
+    if (this.recipeForm) {
       this.recipeForm.patchValue({
         title: recipe.title,
-        favourite: recipe.favourite
+        description: recipe.description,
+        favourite: recipe.favourite,
       });
 
-      const ingredientsArray = recipe.ingredients as string[];
-      const methodArray = recipe.method as string[];       
-
-      const ingredientsFormArray = this.fb.array(
-        ingredientsArray.map((ingredient: string) => this.fb.control(ingredient, Validators.required))
-      );
-      this.recipeForm.setControl('ingredients', ingredientsFormArray);
-      
-      const methodFormArray = this.fb.array(
-        methodArray.map((step: string) => this.fb.control(step, Validators.required))
-      );
-      this.recipeForm.setControl('method', methodFormArray);
+      this.setFormArray('ingredients', recipe.ingredients);
+      this.setFormArray('method', recipe.method);
     }
   }
-  
+
+  setFormArray(name: string, value: string[]) {
+    const formArray = this.fb.array(
+      value.map((value) => this.fb.control(value, Validators.required))
+    );
+    this.recipeForm?.setControl(name, formArray);
+  }
+
   get ingredients(): FormArray | undefined {
-    if (this.recipeForm) {
-      return this.recipeForm.get('ingredients') as FormArray;
-    } else {
-      return undefined
-    }
+    return this.recipeForm?.get('ingredients') as FormArray;
   }
 
   addIngredient(): void {
@@ -89,7 +85,7 @@ export class UpdateRecipeComponent implements OnInit {
     if (this.recipeForm) {
       return this.recipeForm.get('method') as FormArray;
     } else {
-      return undefined
+      return undefined;
     }
   }
 
@@ -107,19 +103,24 @@ export class UpdateRecipeComponent implements OnInit {
 
   onSubmit(): void {
     if (this.recipe) {
-      this.recipeService.updateRecipe(this.recipe).subscribe(updatedRecipe => {
-        console.log('Recipe updated: ', updatedRecipe);
-        this.router.navigate(['/read-recipes']);  // Navigate back to recipe page
-     });
+      const updatedRecipe = { ...this.recipe, ...this.recipeForm?.value };
+      this.recipeService
+        .updateRecipe(updatedRecipe)
+        .subscribe((updatedRecipe) => {
+          console.log('Recipe updated: ', updatedRecipe);
+          this.router.navigate(['/read-recipes']); // Navigate back to recipe page
+        });
     }
   }
 
   deleteRecipe(): void {
     if (this.recipe) {
-      this.recipeService.deleteRecipe(this.recipe.id).subscribe(deletedRecipe => {
-        console.log('Recipe deleted: ', deletedRecipe);
-        this.router.navigate(['/read-recipes']);  // Navigate back to recipe page
-      })
+      this.recipeService
+        .deleteRecipe(this.recipe.id)
+        .subscribe((deletedRecipe) => {
+          console.log('Recipe deleted: ', deletedRecipe);
+          this.router.navigate(['/read-recipes']); // Navigate back to recipe page
+        });
     }
   }
 }
