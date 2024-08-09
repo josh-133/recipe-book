@@ -15,6 +15,8 @@ RUN npm install -g @angular/cli
 COPY . .
 
 # Build the Angular application
+# RUN ng cache clean --all
+# RUN npm cache clean --force
 RUN ng build --configuration=production
 
 # Stage 2: Serve the Angular application using http-server

@@ -1,25 +1,23 @@
 <div class="container justify-content-center">
   <h1>Create Recipe</h1>
-  <form (submit)="onSubmit()">
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
     <label for="title" class="fw-bold">Title</label><br />
     <input
       type="text"
       id="rtitle"
       class="form-control"
       formControlName="title"
-      [(ngModel)]="newRecipe.title"
       name="title"
       required
     /><br />
 
     <label for="description" class="fw-bold">Description</label><br />
     <input
-      id="description"
-      rows="8"
-      cols="50"
       class="form-control"
-      [(ngModel)]="newRecipe.description"
+      type="text"
+      id="description"
       name="description"
+      formControlName="description"
       required
     /><br />
 
@@ -68,8 +66,8 @@
       id="favourite"
       type="checkbox"
       class="m-2"
-      [(ngModel)]="newRecipe.favourite"
       name="favourite"
+      formControlName="favourite"
     />
 
     <button type="submit" class="btn btn-primary" id="save">Save</button>
