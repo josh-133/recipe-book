@@ -4,12 +4,12 @@ import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class RecipeService {
   private apiUrl = 'http://localhost:8000/api/recipes';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   recipes: Recipe[] = [];
 
@@ -23,8 +23,8 @@ export class RecipeService {
     return this.http.get<Recipe>(`${this.apiUrl}/${id}`);
   }
 
-  createRecipe(title: string, ingredients: string, method: string) {
-    console.log(`Recipe created: title: ${title}, ingredients: ${ingredients}, method: ${method}.`);
+  createRecipe(newRecipe: Recipe) {
+    return this.http.post<Recipe>(`${this.apiUrl}`, newRecipe);
   }
 
   addRecipe(recipe: Recipe) {
@@ -32,7 +32,10 @@ export class RecipeService {
   }
 
   updateRecipe(updatedRecipe: Recipe) {
-    return this.http.put<Recipe[]>(`${this.apiUrl}/${updatedRecipe.id}`, updatedRecipe);
+    return this.http.put<Recipe[]>(
+      `${this.apiUrl}/${updatedRecipe.id}`,
+      updatedRecipe
+    );
   }
 
   deleteRecipe(id: string) {

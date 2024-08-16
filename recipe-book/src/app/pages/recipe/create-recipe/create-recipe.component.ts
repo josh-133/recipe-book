@@ -53,6 +53,13 @@ export class CreateRecipeComponent {
     });
   }
 
+  setFormArray(name: string, value: string[]) {
+    const formArray = this.fb.array(
+      value.map((value) => this.fb.control(value, Validators.required))
+    );
+    this.recipeForm?.setControl(name, formArray);
+  }
+
   get ingredients(): FormArray | undefined {
     return this.recipeForm?.get('ingredients') as FormArray;
   }
@@ -90,11 +97,16 @@ export class CreateRecipeComponent {
   }
 
   onSubmit() {
-    this.recipeService.addRecipe(this.newRecipe).subscribe((createdRecipe) => {
-      console.log('Recipe created: ', createdRecipe);
-      this.router.navigate(['/read-recipes']); // Navigate back to home page
-      this.resetForm();
-    });
+    if (this.recipeForm?.valid) {
+      const createdRecipe: Recipe = this.recipeForm.value;
+      console.log(createdRecipe);
+      this.recipeService
+        .createRecipe(createdRecipe)
+        .subscribe((createdRecipe) => {
+          console.log('Recipe created: ', createdRecipe);
+          this.router.navigate(['/read-recipes']); // Navigate back to recipe page
+        });
+    }
   }
 
   resetForm() {

@@ -1,26 +1,28 @@
-<div class="container justify-content-center">
+<div class="container justify-content-center" *ngIf="recipeForm">
   <h1>Create Recipe</h1>
   <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
-    <label for="title" class="fw-bold">Title</label><br />
-    <input
-      type="text"
-      id="rtitle"
-      class="form-control"
-      formControlName="title"
-      name="title"
-      required
-    /><br />
-
-    <label for="description" class="fw-bold">Description</label><br />
-    <input
-      class="form-control"
-      type="text"
-      id="description"
-      name="description"
-      formControlName="description"
-      required
-    /><br />
-
+    <div class="mb-3">
+      <label for="title" class="form-label fw-bold">Title</label><br />
+      <input
+        type="text"
+        id="rtitle"
+        class="form-control"
+        formControlName="title"
+        name="title"
+        required
+      /><br />
+    </div>
+    <div class="mb-3">
+      <label for="description" class="fw-bold">Description</label><br />
+      <input
+        class="form-control"
+        type="text"
+        id="description"
+        name="description"
+        formControlName="description"
+        required
+      /><br />
+    </div>
     <div class="mb-3">
       <label class="form-label fw-bold" for="ingredients">Ingredients</label
       ><br />
