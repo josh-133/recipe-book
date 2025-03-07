@@ -28,9 +28,8 @@ export class CreateRecipeComponent {
     id: '0',
     title: '',
     description: '',
-    ingredients: [],
-    method: [],
-    favourite: false,
+    ingredients: '',
+    method: '',
   };
 
   ngOnInit(): void {
@@ -47,9 +46,8 @@ export class CreateRecipeComponent {
     this.recipeForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      ingredients: this.fb.array([]),
-      method: this.fb.array([]),
-      favourite: false,
+      ingredients: ['', Validators.required],
+      method: ['', Validators.required],
     });
   }
 
@@ -114,9 +112,8 @@ export class CreateRecipeComponent {
       id: '0',
       title: '',
       description: '',
-      ingredients: [],
-      method: [],
-      favourite: false,
+      ingredients: '',
+      method: '',
     };
   }
 }

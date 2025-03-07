@@ -23,56 +23,29 @@
       /><br />
     </div>
     <div class="mb-3">
-      <label class="form-label fw-bold" for="ingredients">Ingredients</label
-      ><br />
-      <div formArrayName="ingredients" *ngIf="ingredients">
-        <div
-          *ngFor="let ingredient of ingredients.controls; let i = index"
-          class="form-group"
-        >
-          <input [formControlName]="i" class="form-control" />
-          <button
-            type="button"
-            class="btn btn-danger"
-            (click)="removeIngredient(i)"
-          >
-            Remove
-          </button>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary" (click)="addIngredient()">
-        Add Ingredient
-      </button>
-    </div>
-    <div class="mb-3">
-      <label class="form-label fw-bold" for="method">Method</label><br />
-      <div formArrayName="method" *ngIf="method">
-        <div
-          *ngFor="let step of method.controls; let i = index"
-          class="form-group"
-        >
-          <input [formControlName]="i" class="form-control" />
-          <button type="button" class="btn btn-danger" (click)="removeStep(i)">
-            Remove
-          </button>
-        </div>
-      </div>
-      <button type="button" class="btn btn-primary" (click)="addStep()">
-        Add Method
-      </button>
-    </div>
-    <div class="mb-3">
-      <label class="form-check-label fw-bold" for="favourite">Favourite</label>
+      <label for="ingredients" class="fw-bold">Ingredients</label><br />
       <input
-        id="favourite"
-        type="checkbox"
-        class="m-2"
-        name="favourite"
-        formControlName="favourite"
-      />
+        class="form-control"
+        type="text"
+        id="ingredients"
+        name="ingredients"
+        formControlName="ingredients"
+        required
+      /><br />
+    </div>
+    <div class="mb-3">
+      <label for="method" class="fw-bold">Method</label><br />
+      <input
+        class="form-control"
+        type="text"
+        id="method"
+        name="method"
+        formControlName="method"
+        required
+      /><br />
     </div>
 
-    <button class="btn btn-primary" id="save" type="submit">Save</button>
+    <button type="submit" class="btn btn-primary" id="save">Save</button>
     <button class="btn btn-danger m-3" id="delete" (click)="deleteRecipe()">
       Delete
     </button>

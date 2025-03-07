@@ -39,9 +39,8 @@ export class UpdateRecipeComponent implements OnInit {
     this.recipeForm = this.fb.group({
       title: ['', Validators.required],
       description: ['', Validators.required],
-      ingredients: this.fb.array([]),
-      method: this.fb.array([]),
-      favourite: false,
+      ingredients: ['', Validators.required],
+      method: ['', Validators.required],
     });
   }
 
@@ -50,11 +49,9 @@ export class UpdateRecipeComponent implements OnInit {
       this.recipeForm.patchValue({
         title: recipe.title,
         description: recipe.description,
-        favourite: recipe.favourite,
+        ingredients: recipe.ingredients,
+        method: recipe.method,
       });
-
-      this.setFormArray('ingredients', recipe.ingredients);
-      this.setFormArray('method', recipe.method);
     }
   }
 
@@ -104,6 +101,7 @@ export class UpdateRecipeComponent implements OnInit {
   onSubmit(): void {
     if (this.recipe) {
       const updatedRecipe = { ...this.recipe, ...this.recipeForm?.value };
+      console.log('Submitting updated recipe:', updatedRecipe);
       this.recipeService
         .updateRecipe(updatedRecipe)
         .subscribe((updatedRecipe) => {

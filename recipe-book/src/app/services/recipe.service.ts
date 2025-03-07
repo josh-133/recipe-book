@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
   providedIn: 'root',
 })
 export class RecipeService {
-  private apiUrl = 'http://localhost:8000/api/recipes';
+  private apiUrl = 'http://localhost:8080/recipes';
 
   constructor(private http: HttpClient) {}
 

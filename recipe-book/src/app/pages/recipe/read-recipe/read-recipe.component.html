@@ -8,8 +8,7 @@
             
             <label class="fw-bold" for="method">Method</label><br>
             <p class="card-text">{{ recipe.method }}</p>
-            
-            <p *ngIf="recipe.favourite">Favourite <fa-icon [icon]="faStar"></fa-icon></p>
+
             <button type="button" class="btn btn-primary" [routerLink]="['/update-recipe/', recipe.id]">Update recipe</button>
             <button type="button" class="btn btn-primary m-2" [routerLink]="['/read-recipes']">Back</button>  
         </div>
