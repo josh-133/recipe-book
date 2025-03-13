@@ -32,7 +32,7 @@ export class RecipeService {
   }
 
   updateRecipe(updatedRecipe: Recipe) {
-    return this.http.put<Recipe[]>(
+    return this.http.post<Recipe[]>(
       `${this.apiUrl}/${updatedRecipe.id}`,
       updatedRecipe
     );
