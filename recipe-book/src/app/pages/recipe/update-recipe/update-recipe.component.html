@@ -1,23 +1,57 @@
-<h1>Update Recipe</h1>
-<div *ngIf="recipe; else noRecipe">
-    <form (submit)="onSubmit()">
-        <label for="title">Title</label><br>
-        <input type="text" id="rtitle" [(ngModel)]="recipe.title" name="rtitle"><br>
-        
-        <label for="ingredients">Ingredients</label><br>
-        <input type="text" id="ingredients" [(ngModel)]="recipe.ingredients" name="ingredients"><br>
-        
-        <label for="method">Method</label><br>
-        <textarea id="method" [(ngModel)]="recipe.method" name="method" rows="4" cols="50"></textarea><br>
+<div class="container justify-content-center" *ngIf="recipeForm">
+  <h1>Update Recipe</h1>
+  <form [formGroup]="recipeForm" (ngSubmit)="onSubmit()">
+    <div class="mb-3">
+      <label class="form-label fw-bold" for="title">Title</label><br />
+      <input
+        class="form-control"
+        type="text"
+        id="rtitle"
+        name="rtitle"
+        formControlName="title"
+      /><br />
+    </div>
+    <div class="mb-3">
+      <label class="form-label fw-bold" for="description">Description</label
+      ><br />
+      <input
+        class="form-control"
+        type="text"
+        id="rdescription"
+        name="rdescription"
+        formControlName="description"
+      /><br />
+    </div>
+    <div class="mb-3">
+      <label for="ingredients" class="fw-bold">Ingredients</label><br />
+      <input
+        class="form-control"
+        type="text"
+        id="ingredients"
+        name="ingredients"
+        formControlName="ingredients"
+        required
+      /><br />
+    </div>
+    <div class="mb-3">
+      <label for="method" class="fw-bold">Method</label><br />
+      <input
+        class="form-control"
+        type="text"
+        id="method"
+        name="method"
+        formControlName="method"
+        required
+      /><br />
+    </div>
 
-        <label for="favourite">Favourite</label>
-        <input id="favourite" type="checkbox" [(ngModel)]="recipe.favourite" name="favourite">
-
-        <button id="save" type="submit">Save</button>
-        <button id="delete">Delete</button>
-    </form>
+    <button type="submit" class="btn btn-primary" id="save">Save</button>
+    <button class="btn btn-danger m-3" id="delete" (click)="deleteRecipe()">
+      Delete
+    </button>
+  </form>
 </div>
 
 <ng-template #noRecipe>
-    <p>Recipe not found!</p>
+  <p>Recipe not found!</p>
 </ng-template>

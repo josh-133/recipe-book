@@ -1,9 +1,9 @@
 import { Routes } from '@angular/router';
 import { HomeComponent } from './pages/home/home.component';
 import { CreateRecipeComponent } from './pages/recipe/create-recipe/create-recipe.component';
+import { ReadRecipesComponent } from './pages/recipe/read-recipes/read-recipes.component';
 import { ReadRecipeComponent } from './pages/recipe/read-recipe/read-recipe.component';
 import { UpdateRecipeComponent } from './pages/recipe/update-recipe/update-recipe.component';
-import { FavouriteRecipeComponent } from './pages/recipe/favourite-recipe/favourite-recipe.component';
 
 export const routes: Routes = [
     {
@@ -17,7 +17,12 @@ export const routes: Routes = [
         title: 'Create Recipe'
     },
     {
-        path: 'read-recipe',
+        path: 'read-recipes',
+        component: ReadRecipesComponent,
+        title: 'Read Recipes'
+    },
+    {
+        path: 'read-recipe/:id',
         component: ReadRecipeComponent,
         title: 'Read Recipe'
     },
@@ -25,10 +30,5 @@ export const routes: Routes = [
         path: 'update-recipe/:id',
         component: UpdateRecipeComponent,
         title: 'Update Recipe'
-    },
-    {
-        path: 'favourite-recipe',
-        component: FavouriteRecipeComponent,
-        title: 'Favourite Recipe'
     }
 ];

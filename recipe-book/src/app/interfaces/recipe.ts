@@ -1,7 +1,7 @@
 export interface Recipe {
-    id: number,
+    id: string,
     title: string,
+    description: string,
     ingredients: string,
-    method: string
-    favourite: boolean;
+    method: string,
 }

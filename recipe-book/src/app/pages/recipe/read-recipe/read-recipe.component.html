@@ -1,10 +1,20 @@
-<h1>Recipes Page</h1>
-<ul *ngFor="let recipe of recipes">
-    <li>
-        <h2>{{ recipe.title }}</h2>
-        <p>{{ recipe.ingredients }}</p>
-        <p>{{ recipe.method }}</p>
-        <p *ngIf="recipe.favourite">Favourite <fa-icon [icon]="faStar"></fa-icon></p>
-        <a [routerLink]="['/update-recipe/', recipe.id]">Update recipe {{recipe.title}}.</a>
-    </li>
-</ul>
+<div class="container justify-content-center" *ngIf="recipe; else noRecipe">
+    <h1>{{ recipe.title }}</h1>
+    <div class="card">
+        <div class="card-body">
+
+            <label class="fw-bold" for="ingredients">Ingredients</label><br>
+            <p class="card-text">{{ recipe.ingredients }}</p>
+            
+            <label class="fw-bold" for="method">Method</label><br>
+            <p class="card-text">{{ recipe.method }}</p>
+
+            <button type="button" class="btn btn-primary" [routerLink]="['/update-recipe/', recipe.id]">Update recipe</button>
+            <button type="button" class="btn btn-primary m-2" [routerLink]="['/read-recipes']">Back</button>  
+        </div>
+    </div>
+</div>
+
+<ng-template #noRecipe>
+    <p>Recipe not found!</p>
+</ng-template>
